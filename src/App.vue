@@ -15,23 +15,24 @@ import Footer from "@/components/Footer.vue"
 export default {
   data(){
     return {
-      todos:[
-        {
-          id:1,
-          content:'预习vue',
-          isDone:true
-        },
-        {
-          id:2,
-          content:'学习vue',
-          isDone:false
-        },
-        {
-          id:3,
-          content:'复习vue',
-          isDone:false
-        }
-      ]
+    //   todos:[
+    //     {
+    //       id:1,
+    //       content:'预习vue',
+    //       isDone:true
+    //     },
+    //     {
+    //       id:2,
+    //       content:'学习vue',
+    //       isDone:false
+    //     },
+    //     {
+    //       id:3,
+    //       content:'复习vue',
+    //       isDone:false
+    //     }
+    //   ]
+    todos:JSON.parse(localStorage.getItem('TODOS')) || []
     }
   },
   components:{
@@ -63,6 +64,17 @@ export default {
         return v
         });
     },
+  },
+  watch:{
+    todos:{
+      deep:true,
+      handler(newVal){
+        // 当todos数据发生改变的时候，就将变化后的数据存储带哦localStorage当中
+        // localStorage是前端本地存储的方案，是一个小型的数据库，存储到localStorage当中的东西都会自动住哪胡为字符串
+        // local有四个API
+        localStorage.setItem('TODOS',JSON.stringify(newVal));
+      }
+    }
   }
 }
 </script>
